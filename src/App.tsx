@@ -1,11 +1,12 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Launchpad from './Launchpad';
-import ProjectDetail from './ProjectDetail';
-import Projects from './Projects';
-import Faq from './Faq';
-import Header from '../components/Header';
+import Profile from './pages/Profile';
+import Partnerships from './pages/Partnerships';
+import Faq from './pages/Faq';
+
+import Header from 'components/Header';
+import Copyright from 'components/common/Copyright';
 import ConnectWalletModal from 'components/ConnectWalletModal';
 import { useTxModal, useWalletModal } from 'contexts';
 import TxModal from 'components/TxModal';
@@ -17,16 +18,11 @@ function App() {
     <>
       <Header />
       <Switch>
-        <Route path={'/'} component={Launchpad} exact />
-        <Route path={'/projects'} component={Projects} exact />
-        <Route path={'/faq'} component={Faq} exact />
-        <Route
-          path={'/project/:symbol-:id'}
-          render={(props) => (
-            <ProjectDetail id={props.match.params.id as string} />
-          )}
-        />
+        <Route path="/" component={Profile} exact />
+        <Route path="/partnerships" component={Partnerships} exact />
+        <Route path="/faq" component={Faq} exact />
       </Switch>
+      <Copyright pb="5rem" mt="10rem" />
       <ConnectWalletModal onClose={() => toggleModal(false)} visible={isOpen} />
       <TxModal txStatus={txStatus} txHash={txHash} onClose={onClose} />
     </>

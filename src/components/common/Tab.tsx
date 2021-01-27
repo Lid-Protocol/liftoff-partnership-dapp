@@ -7,19 +7,18 @@ export const STabs = styled(Tabs)`
 
 export const STabList = styled(TabList)`
   list-style-type: none;
-  padding: 4px;
   display: flex;
   justify-content: center;
   margin: 0;
+  border-bottom: 1px solid #b4b4b4;
 `;
 
 export const STab = styled(Tab)`
-  margin-right: 4px;
-  padding: 4px;
+  padding: 20px 0;
   user-select: none;
   text-align: center;
   cursor: pointer;
-  width: 150px;
+  width: 250px;
 
   ${({ theme }) =>
     theme.mediaWidth.upToSmall({
@@ -27,7 +26,7 @@ export const STab = styled(Tab)`
     })}
 
   &.is-selected {
-    border-bottom: 8px solid #232628;
+    border-bottom: 8px solid #b4b4b4;
   }
 
   &:focus {
@@ -39,7 +38,6 @@ export const STab = styled(Tab)`
 export const STabPanel = styled(TabPanel)`
   display: none;
   min-height: 40vh;
-  border-top: 1px solid #232628;
   padding: 20px 4px;
   margin-top: -5px;
 

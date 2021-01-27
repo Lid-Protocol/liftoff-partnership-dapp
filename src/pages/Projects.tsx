@@ -1,15 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { STab, STabList, STabPanel, STabs } from '../components/Tab';
+import { STab, STabList, STabPanel, STabs } from '../components/common/Tab';
 import CardState from '../components/CardState';
-import Footer from '../components/Footer';
-import Disclaimer from '../components/Disclaimer';
-import InfoStatement from 'components/InfoStatement';
-import CopyRight from '../components/Copyright';
+import CopyRight from '../components/common/Copyright';
 import Spinner from '../components/Spinner';
 
 import { useProjects } from 'contexts/useProjects';
-import { ProjectKey } from 'utils/types';
+import { ProjectStatus } from 'utils/types';
 
 import {
   StyledContainer as UnstyledContainer,
@@ -56,7 +53,7 @@ const StyledContainer = styled(UnstyledContainer)({}, ({ theme }) =>
 );
 interface ITabs {
   title: string;
-  key: ProjectKey;
+  key: ProjectStatus;
 }
 
 const Projects = () => {
@@ -73,7 +70,6 @@ const Projects = () => {
     <>
       <StyledBody color="bg3">
         <StyledContainer sWidth="85vw">
-          <InfoStatement backgroundColor="bg3" color="bg2" />
           <Container>
             <STabs
               selectedTabClassName="is-selected"
@@ -118,13 +114,11 @@ const Projects = () => {
             </STabs>
           </Container>
 
-          <Disclaimer color="#000000" />
           <CopyRight mt="1.375rem" color="#000000" />
 
           <Spinner loading={loading} />
         </StyledContainer>
       </StyledBody>
-      <Footer noBackground={false} color="bg3" />
     </>
   );
 };

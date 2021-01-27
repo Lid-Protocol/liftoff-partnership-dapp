@@ -1,7 +1,7 @@
 import { Web3Provider } from '@ethersproject/providers';
 import { useWeb3React } from '@web3-react/core';
 import { STORAGE_KEY_CONNECTOR } from 'config/constants';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import connectors from 'utils/connectors';
 import { ConnectorNames } from 'utils/enums';
 import { Maybe } from 'utils/types';
@@ -11,6 +11,7 @@ export interface ConnectedWeb3ContextProps {
   library: Web3Provider | undefined;
   networkId: number | undefined;
   rawWeb3Context: any;
+  disconnect: () => void;
 }
 
 const ConnectedWeb3Context = React.createContext<
@@ -60,11 +61,17 @@ export const ConnectedWeb3: React.FC = (props) => {
     // eslint-disable-next-line
   }, [context, library, active, error]);
 
+  const disconnect = useCallback(() => {
+    localStorage.removeItem(STORAGE_KEY_CONNECTOR);
+    deactivate();
+  }, [deactivate]);
+
   const value = {
     account: account || null,
     library,
     networkId: chainId,
-    rawWeb3Context: context
+    rawWeb3Context: context,
+    disconnect: disconnect
   };
 
   return (

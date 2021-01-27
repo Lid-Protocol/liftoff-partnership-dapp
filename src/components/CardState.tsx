@@ -4,11 +4,11 @@ import { useHistory } from 'react-router-dom';
 import { utils } from 'ethers';
 import moment from 'moment';
 
-import Card from './Card';
-import Countdown from './Countdown';
+import Card from './common/Card';
+import Countdown from './common/Countdown';
 
 import { useProjectConfig } from 'contexts/useProjectConfig';
-import { TokenSale, ProjectKey } from 'utils/types';
+import { TokenSale, ProjectStatus } from 'utils/types';
 
 import { TYPE, StatusBadge, ExternalLink } from '../theme';
 import { Colors } from 'theme/styled';
@@ -71,7 +71,7 @@ const Logo = styled.img`
 `;
 
 interface ICardStateProps {
-  type: ProjectKey;
+  type: ProjectStatus;
   project: TokenSale;
 }
 

@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { ModalWrapper } from '../components/Modal';
+import { ModalWrapper } from './modal/Modal';
 import { TYPE } from '../theme';
 import { ReactComponent as EtherscanLinkIcon } from '../assets/svgs/etherscan-link-icon.svg';
-import Button from './Button';
+import Button from './common/Button';
 import { useConnectedWeb3Context } from 'contexts';
 import { TxStatus } from 'utils/enums';
 

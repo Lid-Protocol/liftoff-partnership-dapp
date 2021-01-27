@@ -9,6 +9,7 @@ const Button = styled.button.attrs<
   font-family: 'Open Sans', sans-serif;
   padding: 0.7rem 2rem 0.7rem 2rem;
   border-radius: 5px;
+  height: fit-content;
   cursor: pointer;
   user-select: none;
   font-size: 1rem;

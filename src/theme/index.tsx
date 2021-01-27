@@ -7,7 +7,7 @@ import styled, {
 } from 'styled-components';
 import { Text, TextProps } from 'rebass';
 import { Colors } from './styled';
-import Card from '../components/Card';
+import Card from '../components/common/Card';
 
 const MEDIA_WIDTHS = {
   upToExtraSmall: 500,
@@ -46,6 +46,7 @@ export const colors: Colors = {
   bg4: '#F9FAFB',
   bg5: '#B4B4B4',
   bg6: '#D8D8D8',
+  bg7: '#323437',
 
   primary1: '#2A7CEA',
   primary2: '#FF8CC3',
@@ -289,6 +290,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Open Sans', sans-serif;
+  background-color: #323437;
 }
 input, textarea {
   border: ${({ theme }) => `1px solid ${theme.border}`} !important;

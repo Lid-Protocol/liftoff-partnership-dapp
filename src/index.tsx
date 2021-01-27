@@ -10,7 +10,7 @@ import {
   ModalProvider,
   TxModalProvider
 } from './contexts';
-import App from './pages/App';
+import App from './App';
 import ThemeProvider, { ThemedGlobalStyle } from './theme';
 import reportWebVitals from './reportWebVitals';
 

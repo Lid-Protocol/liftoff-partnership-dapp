@@ -1,7 +1,7 @@
 import React, { HTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { Button } from 'rebass';
-import { ReactComponent as CloseIcon } from '../assets/svgs/close.svg';
+import { ReactComponent as CloseIcon } from 'assets/svgs/close.svg';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   disableCloseButton?: boolean;

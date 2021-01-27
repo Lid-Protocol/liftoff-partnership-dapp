@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import { TYPE } from '../theme';
+import { TYPE } from 'theme';
 
 interface Props {
   date: number;

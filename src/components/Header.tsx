@@ -5,7 +5,7 @@ import ReactTooltip from 'react-tooltip';
 import * as blockies from 'blockies-ts';
 import { useConnectedWeb3Context, useWalletModal } from '../contexts';
 
-import Button from './Button';
+import Button from './common/Button';
 
 import Logo from '../assets/logo.png';
 import Menu from '../assets/menu.svg';
@@ -86,12 +86,13 @@ const StyledNetwork = styled.span<{ isCorrectNetwork: boolean }>`
   width: fit-content;
   margin-left: 1rem;
   margin-right: 1rem;
-  border: 1px solid #3A3D40;
+  border: 1px solid #3a3d40;
   border-radius: 5px;
   padding: 7px 20px 7px 20px;
   font-size: 16px;
   line-height: 22px;
-  color: ${({ isCorrectNetwork }) => (isCorrectNetwork ? '#29ADA5' : '#FD4281')};
+  color: ${({ isCorrectNetwork }) =>
+    isCorrectNetwork ? '#29ADA5' : '#FD4281'};
   cursor: default;
 
   @media (max-width: 720px) {
@@ -105,14 +106,14 @@ const StyledIcon = styled.span`
   align-items: center;
 
   img {
-  	border-radius: 50%;
-	  width: 1.3rem;
+    border-radius: 50%;
+    width: 1.3rem;
   }
 `;
 
 const StyledContainer = styled.div`
   display: flex;
-  background: #3A3D40;
+  background: #3a3d40;
   border-radius: 5px;
   padding: 7px 16px 7px 12px;
 `;
@@ -141,23 +142,23 @@ const Header = (_props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [addrImgSrc, setAddrImgSrc] = useState('');
   const context = useConnectedWeb3Context();
-  const { account, networkId } = context;
+  const { account, networkId, disconnect } = context;
   const isConnected = !!account;
-  const correctNetworkId = parseInt(process.env.REACT_APP_CORRECT_NETWORK_ID || '1');
+  const correctNetworkId = parseInt(
+    process.env.REACT_APP_CORRECT_NETWORK_ID || '1'
+  );
 
   useEffect(() => {
     const imgSrc = blockies.create({ seed: account || '' }).toDataURL();
     setAddrImgSrc(imgSrc);
   }, [account]);
 
-  const disconnect = useCallback(() => {}, []);
-
   return (
     <>
       <StyledNavContainer>
         <StyledLink to="/">
           <StyledLogo src={Logo} alt="LID protocol logo" />
-          <TYPE.LargeHeader fontWeight={400}>LIFTOFF</TYPE.LargeHeader>
+          <TYPE.LargeHeader fontWeight={400}>LIFTOFF PARTNERS</TYPE.LargeHeader>
         </StyledLink>
         {!isOpen ? (
           <StyledMenu src={Menu} onClick={() => setIsOpen(true)} />
@@ -166,10 +167,10 @@ const Header = (_props: Props) => {
         )}
         <StyledNavList open={isOpen}>
           <StyledNavListItem onClick={() => setIsOpen(false)}>
-            <StyledLink to="/">Launchpad</StyledLink>
+            <StyledLink to="/">For partners</StyledLink>
           </StyledNavListItem>
           <StyledNavListItem onClick={() => setIsOpen(false)}>
-            <StyledLink to="/projects">Projects</StyledLink>
+            <StyledLink to="/projects">For projects</StyledLink>
           </StyledNavListItem>
           <StyledNavListItem onClick={() => setIsOpen(false)}>
             <StyledLink to="/faq">FAQ</StyledLink>
@@ -178,27 +179,34 @@ const Header = (_props: Props) => {
             <StyledAccountInfo>
               {networkId !== correctNetworkId ? (
                 <>
-                  <StyledNetwork isCorrectNetwork={false} data-tip data-for="wrong_network">
+                  <StyledNetwork
+                    isCorrectNetwork={false}
+                    data-tip
+                    data-for="wrong_network"
+                  >
                     {networkNames[networkId as networkIds]}
                   </StyledNetwork>
                   <ReactTooltip id="wrong_network">
                     <p>
-                      You are on {networkNames[networkId as networkIds]}. LIFTOFF dapp <br />requires you connect to {networkNames[correctNetworkId as networkIds]}.
+                      You are on {networkNames[networkId as networkIds]}.
+                      LIFTOFF dapp <br />
+                      requires you connect to{' '}
+                      {networkNames[correctNetworkId as networkIds]}.
                     </p>
                   </ReactTooltip>
                 </>
-              ) : (                                                                                                                                                                                                       
+              ) : (
                 <StyledNetwork isCorrectNetwork={true}>
                   {networkNames[networkId as networkIds]}
                 </StyledNetwork>
               )}
               <StyledNavListItem onClick={disconnect}>
-                  <StyledContainer>
-                    <StyledIcon>
-                      <img src={addrImgSrc} alt='' />
-                    </StyledIcon>
-                    {shortenAddress(account || '')}
-                  </StyledContainer>
+                <StyledContainer>
+                  <StyledIcon>
+                    <img src={addrImgSrc} alt="" />
+                  </StyledIcon>
+                  {shortenAddress(account || '')}
+                </StyledContainer>
               </StyledNavListItem>
             </StyledAccountInfo>
           ) : (

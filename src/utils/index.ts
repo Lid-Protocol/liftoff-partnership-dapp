@@ -1,4 +1,4 @@
-import { TokenSale, ProjectKey } from 'utils/types';
+import { TokenSale, ProjectStatus } from 'utils/types';
 import { BigNumber } from 'ethers';
 import { formatUnits } from 'ethers/lib/utils';
 import moment from 'moment';
@@ -76,13 +76,13 @@ export const waitSeconds = (sec = 2): Promise<void> =>
     }, sec * 1000);
   });
 
-export const projectStatus = (tokenSale: TokenSale): ProjectKey => {
+export const projectStatus = (tokenSale: TokenSale): ProjectStatus => {
   const currentTime = moment().unix();
 
-  if(blacklist.ids.includes(tokenSale.tokenId)){
+  if (blacklist.ids.includes(tokenSale.tokenId)) {
     return 'blacklisted';
   }
-  
+
   const status =
     tokenSale.isSparked ||
     (currentTime > tokenSale.endTime &&
@@ -99,4 +99,4 @@ export const projectStatus = (tokenSale: TokenSale): ProjectKey => {
 
 export const isVerified = (tokenSale: TokenSale): boolean => {
   return verified.ids.includes(tokenSale.tokenId);
-}
+};

@@ -10,15 +10,13 @@ import moment from 'moment';
 import { LaunchpadSchema } from 'data/launch.schema';
 import { Timezones } from 'data/timezones';
 
-import CopyRight from 'components/Copyright';
-import Button from 'components/Button';
-import Card from 'components/Card';
-import Disclaimer from 'components/Disclaimer';
-import InfoStatement from 'components/InfoStatement';
-import Footer from 'components/Footer';
-import Input from 'components/Input';
-import Select from 'components/Select';
-import Textarea from 'components/Textarea';
+import CopyRight from 'components/common/Copyright';
+import Button from 'components/common/Button';
+import Card from 'components/common/Card';
+// import InfoStatement from 'components/InfoStatement';
+import Input from 'components/common/Input';
+import Select from 'components/common/Select';
+import Textarea from 'components/common/Textarea';
 import Spinner from 'components/Spinner';
 import { StyledBody, StyledContainer, TYPE } from 'theme';
 
@@ -224,7 +222,7 @@ const Launchpad: FC = () => {
     <>
       <StyledBody color="bg2">
         <StyledContainer sWidth="800px">
-          <InfoStatement backgroundColor="bg2" color="bg3" />
+          {/* <InfoStatement backgroundColor="bg2" color="bg3" /> */}
           <TYPE.LargeHeader color="white" textAlign="center">
             🕹Launchpad for Developers
           </TYPE.LargeHeader>
@@ -773,13 +771,11 @@ const Launchpad: FC = () => {
                 <StyledButton type="submit">Launch</StyledButton>
               </fieldset>
             </form>
-            <Disclaimer color="#b4b4b4" />
             <CopyRight mt="1.375rem" />
           </Box>
           <Spinner loading={loading} />
         </StyledContainer>
       </StyledBody>
-      <Footer noBackground={false} color="bg2" />
     </>
   );
 };
