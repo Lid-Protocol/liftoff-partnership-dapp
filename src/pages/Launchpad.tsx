@@ -23,7 +23,6 @@ import { StyledBody, StyledContainer, TYPE } from 'theme';
 import {
   useConnectedWeb3Context,
   useContracts,
-  useProjects,
   useWalletModal
 } from '../contexts';
 import { getLiftoffSettings } from 'utils/networks';
@@ -110,7 +109,6 @@ const Launchpad: FC = () => {
     ?.text;
 
   const history = useHistory();
-  const { refetch } = useProjects();
 
   const onSubmit = async (data: ILaunchPadInput) => {
     try {
@@ -204,7 +202,6 @@ const Launchpad: FC = () => {
             data.projectName,
             data.tokenTicker
           );
-          await refetch();
           history.push(`/projects`);
           setLoading(false);
         }

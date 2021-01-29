@@ -1,20 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
 import { utils } from 'ethers';
 import moment from 'moment';
+import { Flex } from 'rebass';
 
 import Card from './common/Card';
 import Countdown from './common/Countdown';
+import Button from './common/Button';
 
 import { useProjectConfig } from 'contexts/useProjectConfig';
-import { TokenSale, ProjectStatus } from 'utils/types';
+import { Partnership } from 'utils/types';
 
-import { TYPE, StatusBadge, ExternalLink } from '../theme';
+import { TYPE, StatusBadge, ExternalLink } from 'theme';
 import { Colors } from 'theme/styled';
 
 import { useInsurance, useConnectedWeb3Context } from 'contexts';
 import { getLiftoffSettings } from 'utils/networks';
+import { projectStatus } from 'utils';
 
 const StyledCard = styled(Card)({
   padding: '1rem 2rem',
@@ -70,12 +72,17 @@ const Logo = styled.img`
   object-fit: cover;
 `;
 
-interface ICardStateProps {
-  type: ProjectStatus;
-  project: TokenSale;
+const EarnedXEth = styled.div`
+  border-radius: 1.25rem;
+  text-align: center;
+  border: 1px solid black;
+`;
+
+interface IProjectCard {
+  partnership: Partnership;
 }
 
-const ProjectCard: React.FC<ICardStateProps> = ({ type, project }) => {
+const ProjectCard: React.FC<IProjectCard> = ({ partnership }) => {
   const badges = {
     inactive: {
       color: 'blue1',
@@ -95,12 +102,14 @@ const ProjectCard: React.FC<ICardStateProps> = ({ type, project }) => {
     }
   };
 
+  const project = partnership.tokenSale;
+  const type = projectStatus(project);
+
   const { networkId } = useConnectedWeb3Context();
   const { projectConf } = useProjectConfig(project.ipfsHash);
   const { insurance } = useInsurance(project.id);
   const setting = getLiftoffSettings(networkId || 1);
 
-  const history = useHistory();
   const currentTime = moment().unix();
 
   let countdown = 0;
@@ -124,12 +133,8 @@ const ProjectCard: React.FC<ICardStateProps> = ({ type, project }) => {
     }
   }
 
-  const onClickCard = () => {
-    history.push(`/project/${project.symbol}-${project.id}`);
-  };
-
   return (
-    <StyledCard onClick={onClickCard}>
+    <StyledCard>
       <StyledLogo>
         {projectConf ? (
           <Logo src={projectConf.logo} alt="project logo" />
@@ -157,6 +162,27 @@ const ProjectCard: React.FC<ICardStateProps> = ({ type, project }) => {
       <StyledLink href={projectConf ? projectConf.websiteLink : '#'}>
         {projectConf ? projectConf.websiteLink : ''}
       </StyledLink>
+      <StyledLink
+        href={`https://liftoff.eth.link/#/${project.symbol}-${project.id}`}
+      >
+        {`liftoff.eth.link/#/${project.symbol}-${project.id}`}
+      </StyledLink>
+      {!partnership.isApproved ? (
+        <Flex justifyContent="space-between">
+          <Button width="45%" bgColor="green2">
+            Accept
+          </Button>
+          <Button width="45%" bgColor="red5">
+            Decline
+          </Button>
+        </Flex>
+      ) : (
+        <EarnedXEth>
+          <TYPE.Body color="black" lineHeight="2rem" fontWeight="600">
+            xETH you earned: 5.12 xETH
+          </TYPE.Body>
+        </EarnedXEth>
+      )}
     </StyledCard>
   );
 };

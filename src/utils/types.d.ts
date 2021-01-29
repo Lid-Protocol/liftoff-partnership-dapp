@@ -66,7 +66,7 @@ export type Ignitor = {
   hasRefunded: boolean;
 };
 
-export type PartnershipStatus = 'request' | 'accepted' | 'declined';
+export type PartnershipStatus = 'request' | 'accepted';
 
 export type PartnerInfo = {
   ID?: string;
@@ -145,6 +145,7 @@ export type Partnership = {
   feeBP: string;
   isApproved: boolean;
   tokenSalePartnership?: TokenSalePartnership;
+  tokenSale: TokenSale;
 };
 
 declare global {

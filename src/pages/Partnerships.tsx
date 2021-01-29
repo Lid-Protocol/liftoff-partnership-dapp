@@ -1,19 +1,15 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { STab, STabList, STabPanel, STabs } from '../components/common/Tab';
 
 import { Flex } from 'rebass';
-import CardState from 'components/ProjectCard';
+import ProjectCard from 'components/ProjectCard';
 import Spinner from 'components/Spinner';
 
-import { useProjects } from 'contexts/useProjects';
-import { PartnershipStatus } from 'utils/types';
+import { usePartner } from 'contexts';
+import { Partnership, PartnershipStatus } from 'utils/types';
 
-import {
-  StyledContainer as UnstyledContainer,
-  StyledBody,
-  TYPE
-} from '../theme';
+import { StyledContainer as UnstyledContainer, StyledBody, TYPE } from 'theme';
 
 const LayoutGrid = styled.div(
   {
@@ -47,14 +43,44 @@ interface ITabs {
 }
 
 const Partnerships: FC = () => {
-  const { projects, loading, error } = useProjects();
+  const { partner, loading, error } = usePartner(
+    '0x558bb9391e8600054dd7863144fe44cd270be1f6'
+  );
+
+  const [partnerships, setPartnerships] = useState<{
+    request: Partnership[];
+    accepted: Partnership[];
+  }>({
+    request: [],
+    accepted: []
+  });
 
   const tabs: ITabs[] = [
     { title: 'REQUESTS', key: 'request' },
     { title: 'ACTIVE', key: 'accepted' }
   ];
 
-  console.log(projects, loading, error);
+  useEffect(() => {
+    if (!partner) {
+      return;
+    }
+    const newPartnerships = partner.partnershipRequests.reduce(
+      (arry, partnership) => {
+        const status: PartnershipStatus = partnership.isApproved
+          ? 'accepted'
+          : 'request';
+        return {
+          ...arry,
+          [status]: [...arry[status], partnership]
+        };
+      },
+      {
+        request: [] as Partnership[],
+        accepted: [] as Partnership[]
+      }
+    );
+    setPartnerships(newPartnerships);
+  }, [partner]);
 
   return (
     <StyledBody color="bg7">
@@ -76,31 +102,26 @@ const Partnerships: FC = () => {
               </STab>
             ))}
           </STabList>
-          {/* {tabs.map((tab) => (
-              <STabPanel key={tab.key}>
-                {projects[tab.key].length > 0 ? (
-                  <LayoutGrid>
-                    {projects[tab.key].map((project) => (
-                      <CardState
-                        key={project.id}
-                        type={tab.key}
-                        project={project}
-                      />
-                    ))}
-                  </LayoutGrid>
-                ) : (
-                  <Flex
-                    height="40vh"
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    <TYPE.Header color="grey">
-                      There are currently no projects {tab.title.toLowerCase()}.
-                    </TYPE.Header>
-                  </Flex>
-                )}
-              </STabPanel>
-            ))} */}
+          {tabs.map((tab) => (
+            <STabPanel key={tab.key}>
+              {partnerships[tab.key].length > 0 ? (
+                <LayoutGrid>
+                  {partnerships[tab.key].map((partnership) => (
+                    <ProjectCard
+                      key={partnership.id}
+                      partnership={partnership}
+                    />
+                  ))}
+                </LayoutGrid>
+              ) : (
+                <Flex height="40vh" justifyContent="center" alignItems="center">
+                  <TYPE.Header color="grey">
+                    There are currently no projects {tab.title.toLowerCase()}.
+                  </TYPE.Header>
+                </Flex>
+              )}
+            </STabPanel>
+          ))}
         </STabs>
         <Spinner loading={loading} />
       </StyledContainer>
