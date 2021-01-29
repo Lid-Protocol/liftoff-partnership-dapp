@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from 'react-modal';
+import Modal, { Styles } from 'react-modal';
 import { withTheme } from 'styled-components';
 
 import ModalTitle from './ModalTitle';
@@ -9,6 +9,7 @@ interface Props extends React.ComponentProps<typeof Modal> {
   disableBackdropClick?: boolean;
   theme?: any;
   title?: string;
+  customStyle?: Styles;
 }
 
 const ModalContainer: React.FC<Props> = (props) => {
@@ -18,6 +19,7 @@ const ModalContainer: React.FC<Props> = (props) => {
     onRequestClose,
     theme,
     title,
+    customStyle,
     ...restProps
   } = props;
   const { modalStyle } = theme;
@@ -30,7 +32,10 @@ const ModalContainer: React.FC<Props> = (props) => {
     <Modal
       onRequestClose={onRequestClose}
       shouldCloseOnOverlayClick={!disableBackdropClick}
-      style={modalStyle}
+      style={{
+        content: { ...modalStyle.content, ...customStyle?.content },
+        overlay: { ...modalStyle.overlay, ...customStyle?.overlay }
+      }}
       {...restProps}
     >
       {title ? (

@@ -68,6 +68,18 @@ export type Ignitor = {
 
 export type PartnershipStatus = 'request' | 'accepted' | 'declined';
 
+export type PartnerInfo = {
+  ID?: string;
+  NAME: string;
+  CONTROLLER: string;
+  CONTACT: string;
+  INFO: string;
+  LOGOHASH: string;
+  SOFTCAP_MIN_ETHER: string;
+  FEE_BP: string;
+  DESCRIPTION: string;
+};
+
 export type ProjectStatus = 'inactive' | 'active' | 'completed' | 'blacklisted';
 
 export type ProjectConfig = {
@@ -108,6 +120,31 @@ export type TokenInsurance = {
   pair?: string;
   isUnwound?: boolean;
   hasBaseFeeClaimed?: boolean;
+};
+
+export type Partner = {
+  id: string;
+  partnerId: string;
+  controller: string;
+  ipfsHash: string;
+  partnershipRequests: [Partnership];
+};
+
+export type TokenSalePartnership = {
+  id: string;
+  tokenSaleId: string;
+  totalPartnerships: string;
+  totalBPForPartners: string;
+  partnershipRequests: [Partnership];
+};
+
+export type Partnership = {
+  id: string;
+  partnerId: string;
+  tokenSaleId: string;
+  feeBP: string;
+  isApproved: boolean;
+  tokenSalePartnership?: TokenSalePartnership;
 };
 
 declare global {

@@ -3,11 +3,10 @@ import styled from 'styled-components';
 import { STab, STabList, STabPanel, STabs } from '../components/common/Tab';
 
 import { Flex } from 'rebass';
-import CardState from 'components/ProjectCard';
+import PartnerCard from 'components/PartnerCard';
 import Spinner from 'components/Spinner';
 
-import { useProjects } from 'contexts/useProjects';
-import { PartnershipStatus } from 'utils/types';
+import { usePartners } from 'contexts';
 
 import {
   StyledContainer as UnstyledContainer,
@@ -43,18 +42,18 @@ const StyledContainer = styled(UnstyledContainer)({}, ({ theme }) =>
 
 interface ITabs {
   title: string;
-  key: PartnershipStatus;
+  key: 'request' | 'accepted';
 }
 
-const Partnerships: FC = () => {
-  const { projects, loading, error } = useProjects();
+const Partners: FC = () => {
+  const { partners, loading, error } = usePartners('4');
 
   const tabs: ITabs[] = [
     { title: 'REQUESTS', key: 'request' },
-    { title: 'ACTIVE', key: 'accepted' }
+    { title: 'ACCEPTED', key: 'accepted' }
   ];
 
-  console.log(projects, loading, error);
+  console.log(partners, loading, error);
 
   return (
     <StyledBody color="bg7">
@@ -76,31 +75,23 @@ const Partnerships: FC = () => {
               </STab>
             ))}
           </STabList>
-          {/* {tabs.map((tab) => (
-              <STabPanel key={tab.key}>
-                {projects[tab.key].length > 0 ? (
-                  <LayoutGrid>
-                    {projects[tab.key].map((project) => (
-                      <CardState
-                        key={project.id}
-                        type={tab.key}
-                        project={project}
-                      />
-                    ))}
-                  </LayoutGrid>
-                ) : (
-                  <Flex
-                    height="40vh"
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    <TYPE.Header color="grey">
-                      There are currently no projects {tab.title.toLowerCase()}.
-                    </TYPE.Header>
-                  </Flex>
-                )}
-              </STabPanel>
-            ))} */}
+          {tabs.map((tab) => (
+            <STabPanel key={tab.key}>
+              {partners[tab.key].length > 0 ? (
+                <LayoutGrid>
+                  {partners[tab.key].map((partner) => (
+                    <PartnerCard key={partner.id} partner={partner} />
+                  ))}
+                </LayoutGrid>
+              ) : (
+                <Flex height="40vh" justifyContent="center" alignItems="center">
+                  <TYPE.Header color="grey">
+                    There are currently no projects {tab.title.toLowerCase()}.
+                  </TYPE.Header>
+                </Flex>
+              )}
+            </STabPanel>
+          ))}
         </STabs>
         <Spinner loading={loading} />
       </StyledContainer>
@@ -108,4 +99,4 @@ const Partnerships: FC = () => {
   );
 };
 
-export default Partnerships;
+export default Partners;

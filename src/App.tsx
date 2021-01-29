@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Profile from './pages/Profile';
 import Partnerships from './pages/Partnerships';
+import Partners from './pages/Partners';
 import Faq from './pages/Faq';
 
 import Header from 'components/Header';
@@ -20,6 +21,7 @@ function App() {
       <Switch>
         <Route path="/" component={Profile} exact />
         <Route path="/partnerships" component={Partnerships} exact />
+        <Route path="/partners" component={Partners} exact />
         <Route path="/faq" component={Faq} exact />
       </Switch>
       <Copyright pb="5rem" mt="10rem" />

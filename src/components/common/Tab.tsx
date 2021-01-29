@@ -38,7 +38,8 @@ export const STab = styled(Tab)`
 export const STabPanel = styled(TabPanel)`
   display: none;
   min-height: 40vh;
-  padding: 20px 4px;
+  padding: 0 4px;
+  padding-top: 5rem;
   margin-top: -5px;
 
   &.is-selected {

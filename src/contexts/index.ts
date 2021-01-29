@@ -8,6 +8,7 @@ export * from './useModal';
 export * from './useTxModal';
 export * from './useProjectConfig';
 export * from './useProject';
-export * from './useIgniteInfo';
 export * from './useInsurance';
 export * from './useToken';
+export * from './usePartners';
+export * from './usePartnerInfo';

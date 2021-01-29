@@ -1,11 +1,8 @@
 import styled from 'styled-components';
+import { Button as UnstyledButton } from 'rebass';
+import { Colors } from 'theme/styled';
 
-const Button = styled.button.attrs<
-  { warning: boolean },
-  { backgroundColor: string }
->(({ warning, theme }) => ({
-  backgroundColor: warning ? theme.red1 : theme.primary1
-}))`
+const Button = styled(UnstyledButton)<{ bgColor?: keyof Colors }>`
   font-family: 'Open Sans', sans-serif;
   padding: 0.7rem 2rem 0.7rem 2rem;
   border-radius: 5px;
@@ -15,7 +12,8 @@ const Button = styled.button.attrs<
   font-size: 1rem;
   border: none;
   outline: none;
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background-color: ${({ bgColor, theme }) =>
+    (theme as any)[bgColor || 'primary1']};
   color: ${({ theme }) => theme.white};
 `;
 

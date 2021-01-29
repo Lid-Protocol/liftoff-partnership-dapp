@@ -57,8 +57,9 @@ const StyledNavList = styled.ul<{ open: boolean }>`
 `;
 
 const StyledNavListItem = styled.li<{ onClick: any }>`
+  position: relative;
   a {
-    margin-right: 2rem;
+    padding: 0 1rem;
     color: ${({ theme }) => theme.white};
     text-decoration: none;
   }
@@ -68,6 +69,25 @@ const StyledNavListItem = styled.li<{ onClick: any }>`
   ${({ theme }) => theme.mediaWidth.upToSmall`
     padding: 1rem;
   `}
+`;
+
+const StyledNavDropDownContent = styled.div`
+  display: none;
+  position: absolute;
+  background-color: ${({ theme }) => theme.bg1};
+  padding-top: 1rem;
+  z-index: 1;
+
+  a {
+    padding: 0.875rem;
+  }
+`;
+
+const StyledNavDropDown = styled(StyledNavListItem)`
+  display: inline-block;
+  &:hover ${StyledNavDropDownContent} {
+    display: block;
+  }
 `;
 
 const StyledLogo = styled.img`
@@ -127,6 +147,7 @@ const StyledLink = styled(Link)`
     margin-left: 1rem;
   }
 `;
+
 const StyledButton = styled(Button)``;
 
 const StyledMenu = styled.img`
@@ -160,17 +181,20 @@ const Header = (_props: Props) => {
           <StyledLogo src={Logo} alt="LID protocol logo" />
           <TYPE.LargeHeader fontWeight={400}>LIFTOFF PARTNERS</TYPE.LargeHeader>
         </StyledLink>
-        {!isOpen ? (
-          <StyledMenu src={Menu} onClick={() => setIsOpen(true)} />
-        ) : (
-          <StyledMenu src={Close} onClick={() => setIsOpen(false)} />
-        )}
+        <StyledMenu
+          src={!isOpen ? Menu : Close}
+          onClick={() => setIsOpen(!isOpen)}
+        />
         <StyledNavList open={isOpen}>
-          <StyledNavListItem onClick={() => setIsOpen(false)}>
+          <StyledNavDropDown onClick={() => setIsOpen(false)}>
             <StyledLink to="/">For partners</StyledLink>
-          </StyledNavListItem>
+            <StyledNavDropDownContent>
+              <StyledLink to="/">Your Profile</StyledLink>
+              <StyledLink to="/partnerships">Partnerships</StyledLink>
+            </StyledNavDropDownContent>
+          </StyledNavDropDown>
           <StyledNavListItem onClick={() => setIsOpen(false)}>
-            <StyledLink to="/projects">For projects</StyledLink>
+            <StyledLink to="/partners">For projects</StyledLink>
           </StyledNavListItem>
           <StyledNavListItem onClick={() => setIsOpen(false)}>
             <StyledLink to="/faq">FAQ</StyledLink>
