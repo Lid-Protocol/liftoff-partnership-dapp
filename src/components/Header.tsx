@@ -58,8 +58,8 @@ const StyledNavList = styled.ul<{ open: boolean }>`
 
 const StyledNavListItem = styled.li<{ onClick: any }>`
   position: relative;
+  padding: 0 1rem;
   a {
-    padding: 0 1rem;
     color: ${({ theme }) => theme.white};
     text-decoration: none;
   }

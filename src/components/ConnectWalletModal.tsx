@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
-import { Button } from 'rebass';
+import { Button, Box } from 'rebass';
 import { useWeb3React } from '@web3-react/core';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { ReactComponent as MetaMaskIcon } from 'assets/svgs/metamask-color.svg';
@@ -36,9 +36,9 @@ const ButtonStyled = styled(Button)({
   border: '1px solid #dadada !important',
   display: 'flex !important',
   flexDirection: 'row',
-  padding: '0.8rem 4rem !important',
-  alignItems: 'center',
-  margin: '5px 0 !important',
+  padding: '0.8rem 1rem !important',
+  alignItems: 'flex-start',
+  marginBottom: '.8rem !important',
   cursor: 'pointer'
 });
 
@@ -46,7 +46,10 @@ const CloseButton = styled.div(
   {
     display: 'flex',
     justifyContent: 'flex-end',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    position: 'absolute',
+    top: '1.25rem',
+    right: '1.25rem'
   },
   ({ theme }) => ({
     color: theme.black
@@ -75,7 +78,7 @@ const ConnectButton = (props: ButtonProps) => {
   return (
     <ButtonStyled disabled={disabled} onClick={onClick}>
       {icon}
-      <TYPE.Header ml={2} fontWeight="normal" color="black">
+      <TYPE.Header ml="1rem " fontWeight="normal" color="black">
         {text}
       </TYPE.Header>
     </ButtonStyled>
@@ -158,24 +161,24 @@ const ConnectWalletModal = (props: IProps) => {
           <CloseIcon />
         </CloseButton>
         <ContentWrapper>
-          <TYPE.LargeHeader fontWeight="normal" color="#232628" mb="1rem">
+          <TYPE.LargeHeader fontWeight="600" color="#232628" mb="1rem">
             {connectingToMetamask ? 'Connecting...' : 'Connect a wallet'}
           </TYPE.LargeHeader>
-          <div>
+          <Box width="80%">
             {isConnectingToWallet ? (
               <>
                 {/* <CircularProgress /> */}
                 <TYPE.Body>{connectingText}</TYPE.Body>
               </>
             ) : (
-              <>
+              <Box>
                 <ConnectButton
                   disabled={disableMetamask}
                   icon={<MetaMaskIcon />}
                   onClick={() => {
                     onClickWallet(ConnectorNames.Injected);
                   }}
-                  text="Metamask"
+                  text="MetaMask"
                 />
                 <ConnectButton
                   disabled={disableWalletConnect}
@@ -193,9 +196,9 @@ const ConnectWalletModal = (props: IProps) => {
                   }}
                   text="Wallet Link"
                 />
-              </>
+              </Box>
             )}
-          </div>
+          </Box>
         </ContentWrapper>
       </ModalWrapper>
     </>
