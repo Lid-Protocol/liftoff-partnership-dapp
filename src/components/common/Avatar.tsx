@@ -12,14 +12,18 @@ const AvatarContainer = styled(Box)<{ size: string }>`
   width: ${({ size }) => size};
   height: ${({ size }) => size};
   background-color: ${({ theme }) => theme.bg3};
+  overflow: hidden;
 `;
 
 const Avatar = (props: IProps) => {
   return (
     <AvatarContainer size={props.size}>
-      {!!props.imgSrc && (
-        <Image src={props.imgSrc} width="100%" height="100%" />
-      )}
+      <>
+        {!!props.imgSrc && (
+          <Image src={props.imgSrc} width="100%" height="100%" />
+        )}
+        <input type="file" />
+      </>
     </AvatarContainer>
   );
 };

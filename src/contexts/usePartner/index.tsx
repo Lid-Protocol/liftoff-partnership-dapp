@@ -50,7 +50,7 @@ export const usePartner = (controller: string) => {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'network-only',
     variables: {
-      controller
+      controller: controller.toLowerCase()
     }
   });
 

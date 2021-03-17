@@ -39,7 +39,7 @@ const DefaultLogo = () => (
 
 const Logo = styled.img`
   width: 104px;
-  height: 104px;
+  min-height: 104px;
   object-fit: cover;
 `;
 
@@ -65,7 +65,10 @@ const PartnerCard: React.FC<IPartnerCard> = ({ partner }) => {
       <StyledCard>
         <StyledLogo>
           {partnerInfo && partnerInfo.LOGOHASH ? (
-            <Logo src={partnerInfo.LOGOHASH} alt="project logo" />
+            <Logo
+              src={`https://ipfs.io/ipfs/${partnerInfo.LOGOHASH}`}
+              alt="project logo"
+            />
           ) : (
             <DefaultLogo />
           )}

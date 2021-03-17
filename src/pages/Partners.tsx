@@ -59,7 +59,7 @@ const Partners: FC = () => {
     <StyledBody color="bg7">
       <StyledContainer sWidth="85vw">
         <TYPE.LargeHeader color="white" textAlign="center" mb="2rem">
-          Your Partnership Projects
+          Your Project Partners
         </TYPE.LargeHeader>
         <STabs
           selectedTabClassName="is-selected"

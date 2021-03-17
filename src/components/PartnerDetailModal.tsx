@@ -85,7 +85,9 @@ const PartnerDetailModal: React.FC<IProps> = ({
         customStyle={customStyle}
         onRequestClose={onClose}
       >
-        <CloseIcon onClick={onClose} />
+        <Flex justifyContent="flex-end">
+          <CloseIcon onClick={onClose} />
+        </Flex>
         <Flex
           flexDirection="column"
           justifyContent="center"
@@ -93,7 +95,10 @@ const PartnerDetailModal: React.FC<IProps> = ({
         >
           <StyledLogo>
             {partnerInfo && partnerInfo.LOGOHASH ? (
-              <Logo src={partnerInfo.LOGOHASH} alt="project logo" />
+              <Logo
+                src={`https://ipfs.io/ipfs/${partnerInfo.LOGOHASH}`}
+                alt="project logo"
+              />
             ) : (
               <DefaultLogo />
             )}
